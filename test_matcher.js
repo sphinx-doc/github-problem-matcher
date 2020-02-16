@@ -4,7 +4,10 @@ var fs = require('fs');
 const matcherJSON = fs.readFileSync('sphinx_matcher.json');
 const matcher = JSON.parse(matcherJSON);
 
-const patterns = matcher.problemMatcher[0].pattern;
+let patterns = [];
+for (const problemMatcher of matcher.problemMatcher) {
+    patterns.push(problemMatcher.pattern[0]);
+}
 
 for (const pattern of patterns) {
     console.log("Patterns under test: ", pattern.regexp);

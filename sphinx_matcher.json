@@ -9,7 +9,12 @@
                     "line": 2,
                     "severity": 3,
                     "message": 4
-                },
+                }
+            ]
+        },
+        {
+            "owner": "sphinx-problem-matcher-loose",
+            "pattern": [
                 {
                     "_comment": "A bit of a looser pattern, doesn't look for line numbers, just looks for file names relying on them to start with / and end with .rst",
                     "regexp": "(\/.*\\.rst):\\s+(\\w*):\\s+(.*)$",
