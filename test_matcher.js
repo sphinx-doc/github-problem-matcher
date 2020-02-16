@@ -48,14 +48,12 @@ const expected_matches = [
         'severity': 'WARNING',
         'message': 'Unknown directive type "BADDIRECTIVE".',
     },
-    /*
     {
         'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/notintoc.rst',
         'line': null,
         'severity': 'WARNING',
         'message': "document isn't included in any toctree"
     }
-    */
 ]
 
 function perform_match(pattern_object, line) {
