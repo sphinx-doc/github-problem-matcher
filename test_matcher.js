@@ -1,0 +1,85 @@
+var assert = require('assert');
+var fs = require('fs');
+
+const matcherJSON = fs.readFileSync('sphinx_matcher.json');
+const matcher = JSON.parse(matcherJSON);
+
+const patterns = matcher.problemMatcher[0].pattern;
+
+for (const pattern of patterns) {
+    console.log("Patterns under test: ", pattern.regexp);
+}
+
+const sphinx_log =
+`/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings_and_errors/index.rst:16: WARNING: Error in "code-block" directive:
+maximum 1 argument(s) allowed, 2 supplied.
+.. code-block:: ruby
+            as
+
+/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst:22: WARNING: Problems with "include" directive path:
+InputError: [Errno 2] No such file or directory: 'I_DONT_EXIST'.
+
+
+/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst:24: WARNING: Unknown directive type "BADDIRECTIVE".
+.. BADDIRECTIVE:: asdf
+
+checking consistency... /home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/notintoc.rst: WARNING: document isn't included in any toctree`;
+
+
+const expected_matches = [
+    {
+        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings_and_errors/index.rst',
+        'line': '16',
+        'severity': 'WARNING',
+        'message': 'Error in "code-block" directive:'
+    },
+    {
+        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst',
+        'line': '22',
+        'severity': 'WARNING',
+        'message': 'Problems with "include" directive path:'
+    },
+    {
+        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst',
+        'line': '24',
+        'severity': 'WARNING',
+        'message': 'Unknown directive type "BADDIRECTIVE".',
+    },
+    {
+        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/notintoc.rst',
+        'line': null,
+        'severity': 'WARNING',
+        'message': "document isn't included in any toctree"
+    }
+]
+
+function perform_match(pattern_object, line) {
+    const match = line.match(pattern_object.regexp);
+
+    if (!match) {
+        return null;
+    }
+
+    return {
+        file: pattern_object.file ? match[pattern_object.file] : null,
+        line: pattern_object.line ? match[pattern_object.line] : null,
+        severity: pattern_object.severity ? match[pattern_object.severity] : null,
+        message: pattern_object.message ? match[pattern_object.message] : null
+    };
+}
+
+let matches = [];
+for (const line of sphinx_log.split(/\n/)) {
+    for (const pattern_object of patterns) {
+        const match = perform_match(pattern_object, line);
+        if (match) {
+            matches.push(match);
+        }
+    }
+}
+
+console.log("Matches: ", matches);
+console.log("Expected matches: ", expected_matches);
+assert.deepEqual(expected_matches, matches);
+
+console.log("[x] All good!");
