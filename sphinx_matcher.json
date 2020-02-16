@@ -4,7 +4,7 @@
             "owner": "sphinx-problem-matcher",
             "pattern": [
                 {
-                    "regexp": "^(.*):(\\d*):\\s+(\\w*):\\s+(.*)$",
+                    "regexp": "^(.*):(\\d+):\\s+(\\w*):\\s+(.*)$",
                     "file": 1,
                     "line": 2,
                     "severity": 3,
