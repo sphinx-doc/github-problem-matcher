@@ -23,6 +23,18 @@
                     "message": 3
                 }
             ]
+        },
+        {
+            "owner": "sphinx-problem-matcher-loose-no-severity",
+            "pattern": [
+                {
+                    "_comment": "Looks for file names ending with .rst and line numbers but without severity",
+                    "regexp": "^(.*\\.rst):(\\d+):(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "message": 3
+                }
+            ]           
         }
     ]
 }
