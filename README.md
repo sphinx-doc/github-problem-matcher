@@ -8,7 +8,7 @@ neatly inside your pull request like this:
 The common usage of this will be like so:
 
 ```yaml
-    - uses: ammaraskar/sphinx-problem-matcher@master
+    - uses: sphinx-doc/github-problem-matcher@master
     - name: "Build docs"
       run: |
         cd docs
