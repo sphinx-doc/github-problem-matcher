@@ -5,5 +5,8 @@ branding:
   icon: book
   color: yellow
 runs:
-  using: docker
-  image: Dockerfile
+  using: composite
+  steps:
+  - name: ✨ Activate the Sphinx Problem Matcher
+    run: echo '::add-matcher::${{ github.action_path }}/sphinx_matcher.json'
+    shell: bash
