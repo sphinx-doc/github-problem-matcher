@@ -7,6 +7,6 @@ branding:
 runs:
   using: composite
   steps:
-  - name: ✨ Activate the Sphinx Problem Matcher
+  - name: Activate the problem matcher
     run: echo '::add-matcher::${{ github.action_path }}/sphinx_matcher.json'
-    shell: bash
+    shell: sh
