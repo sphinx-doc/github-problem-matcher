@@ -14,42 +14,42 @@ for (const pattern of patterns) {
 }
 
 const sphinx_log =
-`/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings_and_errors/index.rst:16: WARNING: Error in "code-block" directive:
+`/tmp/spam/warnings_and_errors/index.rst:16: WARNING: Error in "code-block" directive:
 maximum 1 argument(s) allowed, 2 supplied.
 .. code-block:: ruby
             as
 
-/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst:22: WARNING: Problems with "include" directive path:
+/tmp/spam/warnings/index.rst:22: WARNING: Problems with "include" directive path:
 InputError: [Errno 2] No such file or directory: 'I_DONT_EXIST'.
 
 
-/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst:24: WARNING: Unknown directive type "BADDIRECTIVE".
+/tmp/spam/warnings/index.rst:24: WARNING: Unknown directive type "BADDIRECTIVE".
 .. BADDIRECTIVE:: asdf
 
-checking consistency... /home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/notintoc.rst: WARNING: document isn't included in any toctree`;
+checking consistency... /tmp/spam/warnings/notintoc.rst: WARNING: document isn't included in any toctree`;
 
 
 const expected_matches = [
     {
-        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings_and_errors/index.rst',
+        'file': '/tmp/spam/warnings_and_errors/index.rst',
         'line': '16',
         'severity': 'WARNING',
         'message': 'Error in "code-block" directive:'
     },
     {
-        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst',
+        'file': '/tmp/spam/warnings/index.rst',
         'line': '22',
         'severity': 'WARNING',
         'message': 'Problems with "include" directive path:'
     },
     {
-        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/index.rst',
+        'file': '/tmp/spam/warnings/index.rst',
         'line': '24',
         'severity': 'WARNING',
         'message': 'Unknown directive type "BADDIRECTIVE".',
     },
     {
-        'file': '/home/travis/build/ammaraskar/sphinx-action/tests/test_projects/warnings/notintoc.rst',
+        'file': '/tmp/spam/warnings/notintoc.rst',
         'line': null,
         'severity': 'WARNING',
         'message': "document isn't included in any toctree"
